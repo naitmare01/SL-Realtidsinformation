@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 from SolnaAndUppsalaOnTime import apiCall, clearJsonData
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
@@ -22,23 +22,16 @@ def show_post(post_id):
     # show the post with the given id, the id is an integer
     return 'Post %d' % post_id
 
-@app.route('/solna')
-def show_solna():
-    siteId = "9509"
+@app.route('/trains')
+def show_trains():
+    siteIdUppsala = "6086"
+    siteIdSolna = "9509"
     
-    jsoncall = apiCall(siteId)
-    cleanedJson = clearJsonData(jsoncall)
+    jsoncallUppsala = apiCall(siteIdUppsala)
+    jsoncallSolna = apiCall(siteIdSolna)
+    cleanedJsonUppsala = clearJsonData(jsoncallUppsala)
+    cleanedJsonSolna = clearJsonData(jsoncallSolna)
 
-    for i in cleanedJson:
-        return str(i["TrainOnTime"])
+    data = cleanedJsonSolna + cleanedJsonUppsala
 
-@app.route('/uppsala')
-def show_uppsala():
-    siteId = "6086"
-    
-    jsoncall = apiCall(siteId)
-    cleanedJson = clearJsonData(jsoncall)
-
-    #onTime = cleanedJson["trainOnTime"]
-
-    return render_template('uppsala.html', data=cleanedJson)
+    return render_template('trains.html', data=data)
