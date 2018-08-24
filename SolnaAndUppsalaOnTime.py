@@ -15,7 +15,7 @@ response = requests.request("GET", url, headers=headers, params=querystring)
 jsonresponse = json.loads(response.text)
 
 for n in jsonresponse["ResponseData"]["Trains"]:
-    if n["LineNumber"] == "40" and n["Destination"] == "Uppsala C":
+    if n["LineNumber"] == "40":
         ExpectedDateTime = n["ExpectedDateTime"]
         TimeTabledDateTime = n["TimeTabledDateTime"]
         Destination = n["Destination"]
