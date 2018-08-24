@@ -19,11 +19,12 @@ for n in jsonresponse["ResponseData"]["Trains"]:
         ExpectedDateTime = n["ExpectedDateTime"]
         TimeTabledDateTime = n["TimeTabledDateTime"]
         Destination = n["Destination"]
+        StopAreaName = n["StopAreaName"]
 
         if ExpectedDateTime == TimeTabledDateTime:
             onTime = "Yes"
         else:
             onTime = "Yes"
 
-        result = {'TrainOnTime': onTime,'TimeTabledDateTime': TimeTabledDateTime, 'ExpectedDepartureTime': ExpectedDateTime, 'Destination': Destination}
+        result = {'TrainOnTime': onTime,'TimeTabledDateTime': TimeTabledDateTime, 'ExpectedDepartureTime': ExpectedDateTime,'StopAreaName': StopAreaName, 'Destination': Destination}
         print(result)
