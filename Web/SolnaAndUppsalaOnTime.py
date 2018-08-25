@@ -21,16 +21,37 @@ def clearJsonData(jsonObject):
 
     for n in jsonObject["ResponseData"]["Trains"]:
         if n["LineNumber"] == "40": #and n["Destination"] == "Uppsala C":
-            ExpectedDateTime = n["ExpectedDateTime"]
-            TimeTabledDateTime = n["TimeTabledDateTime"]
+            ExpectedDateTime = n["ExpectedDateTime"].replace('T', ' ')
+            TimeTabledDateTime = n["TimeTabledDateTime"].replace('T', ' ')
             Destination = n["Destination"]
             StopAreaName = n["StopAreaName"]
+            DisplayTime = n["DisplayTime"]
+            Deviations = n["Deviations"]
+            TimeDifference = compareTimes(ExpectedDateTime, TimeTabledDateTime)
+
+            if Deviations:
+                DeviationsText = Deviations[0]['Text']
+                DeviationsImportance = Deviations[0]['Consequence']
+            else:
+                DeviationsText = "Inga avvikelser"
+                DeviationsImportance = "Inga avvikelser"
 
             if ExpectedDateTime == TimeTabledDateTime:
                 onTime = "Yes"
             else:
                 onTime = "No"
 
-            result = {'TrainOnTime': onTime,'TimeTabledDateTime': TimeTabledDateTime, 'ExpectedDepartureTime': ExpectedDateTime,'StopAreaName': StopAreaName, 'Destination': Destination}
+            result = {'TrainOnTime': onTime,'TimeTabledDateTime': TimeTabledDateTime, 'ExpectedDepartureTime': ExpectedDateTime,'StopAreaName': StopAreaName, 'Destination': Destination, 'DisplayTime': DisplayTime, 'DeviationsText': DeviationsText, 'DeviationsImportance': DeviationsImportance, 'TimeDifference': TimeDifference}
             trainInfo.append(result.copy())
     return trainInfo
+
+def compareTimes(expected, timeTable):
+    datetimeExpected = expected
+    datetimeTimeTable = timeTable
+
+    if datetimeExpected > datetimeTimeTable:
+        difference = datetime.datetime.strptime(datetimeExpected, "%Y-%m-%d %H:%M:%S") - datetime.datetime.strptime(datetimeTimeTable, "%Y-%m-%d %H:%M:%S")
+    else:
+        difference = datetime.datetime.strptime(datetimeTimeTable, "%Y-%m-%d %H:%M:%S") - datetime.datetime.strptime(datetimeExpected, "%Y-%m-%d %H:%M:%S")
+    
+    return difference.seconds

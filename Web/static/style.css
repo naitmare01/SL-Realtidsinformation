@@ -42,7 +42,7 @@
    text-transform: uppercase;
    color: #FB667A;
    text-decoration: none;
- }
+ }  
  
  .blue { color: #185875; }
  .yellow { color: #FFF842; }
@@ -65,7 +65,7 @@
  .container {
        text-align: left;
        overflow: hidden;
-       width: 80%;
+       width: 90%;
        margin: 0 auto;
    display: table;
    padding: 0 0 8em 0;
@@ -91,7 +91,7 @@
        background-color: #1F2739;
  }
  
- .container td:first-child { color: #FB667A; }
+ .container td:first-child { color: #ff9933; }
  
  .container tr:hover {
     background-color: #464A52;
@@ -114,7 +114,11 @@
    transition-timing-function: line;
  }
  
- @media (max-width: 800px) {
+ @media (max-width: 1280px) {
  .container td:nth-child(4),
  .container th:nth-child(4) { display: none; }
+ }
+
+ .yes td:first-child{
+  color: rgb(31, 255, 43)!important;
  }

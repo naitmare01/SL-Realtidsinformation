@@ -8,25 +8,29 @@
         <table class="container">
                 <thead>
                         <tr>
-                                <th><h1>I tid?</h1></th>
+                                <th><h1>Tåg i tid?</h1></th>
                                 <th><h1>Avång enligt tabell</h1></th>
                                 <th><h1>Förväntad avgångstid</h1></th>
                                 <th><h1>Avgångsort</h1></th>
                                 <th><h1>Ankomstort</h1></th>
+                                <th><h1>Avvikelse</h1></th>
+                                <th><h1>Antal sekunder sen</h1></th>
                         </tr>
                 </thead>
                 <tbody>
                         {% for i in data %}
-                                <tr>
-                                        {% if i.TrainOnTime == "Yes" %}
-                                                <td style=color:green;>{{ i.TrainOnTime }}</td>
-                                        {% else %}
-                                                <td>{{ i.TrainOnTime }}</td>
-                                        {% endif %}
+                                {% if i.TrainOnTime == "Yes" %}
+                                        <td style="color:#0fee34">{{ i.TrainOnTime }}</td>
+                                {% else %}
+                                        <td>{{ i.TrainOnTime }}</td>
+                                {% endif %}
+                                        
                                         <td>{{ i.TimeTabledDateTime }}</td>
                                         <td>{{ i.ExpectedDepartureTime }}</td>
                                         <td>{{ i.StopAreaName }}</td>
                                         <td>{{ i.Destination }}</td>
+                                        <td>{{ i.DeviationsText }}</td>
+                                        <td>{{ i.TimeDifference }}</td>
                                 </tr>
                         {% endfor %}
 
