@@ -24,5 +24,9 @@ def show_trains():
 
     return render_template('trains.html', data=data)
 
+@app.route('/datalist')
+def show_datalist():
+    return render_template('datalist.html')
+
 if __name__ == '__main__':
     app.run(debug=True,port=80,host='0.0.0.0')
