@@ -1,27 +1,63 @@
-
 <!doctype html>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <title>Datalist</title>
 
-<div id="page-wrapper">
-        <h2>Datalist Element Demo</h2   >
-        
-        <label for="default">Pick a programming language</label>
-        <input type="text" id="default" list="languages" placeholder="e.g. JavaScript">
-        
-        <datalist id="languages">
-          <option value="HTML">
-          <option value="CSS">
-          <option value="JavaScript">
-          <option value="Java">
-          <option value="Ruby">
-          <option value="PHP">
-          <option value="Go">
-          <option value="Erlang">
-          <option value="Python">
-          <option value="C">
-          <option value="C#">
-          <option value="C++">
-        </datalist>
-        
-      </div>
+<div class="grid-container">
+        <div class="item2">
+                <input type="text" id="default" list="languages" placeholder="T.ex. Solna">
+                
+                <datalist id="languages">
+                <option value="HTML">
+                <option value="CSS">
+                <option value="JavaScript">
+                <option value="Java">
+                <option value="Ruby">
+                <option value="PHP">
+                <option value="Go">
+                <option value="Erlang">
+                <option value="Python">
+                <option value="C">
+                <option value="C#">
+                <option value="C++">
+                </datalist>
+          <input id="submit" type="submit">
+                
+        </div>
+        <div class="item3">
+                <h1><span class="blue">&lt;</span>Tågförseningar<span class="blue">&gt;</span> <span class="yellow">Uppsalapendeln</pan></h1>
+                <h2>Listar SLs avgångar från nu och 60minuter framåt mellan Uppsala och Solna</h2>
+                
+                <table class="container">
+                        <thead>
+                                <tr>
+                                        <th><h1>Tåg i tid?</h1></th>
+                                        <th><h1>Avång enligt tabell</h1></th>
+                                        <th><h1>Förväntad avgångstid</h1></th>
+                                        <th><h1>Avgångsort</h1></th>
+                                        <th><h1>Ankomstort</h1></th>
+                                        <th><h1>Avvikelse</h1></th>
+                                        <th><h1>Antal sekunder sen</h1></th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                {% for i in data %}
+                                        {% if i.TrainOnTime == "Yes" %}
+                                                <td style="color:#0fee34">{{ i.TrainOnTime }}</td>
+                                        {% else %}
+                                                <td>{{ i.TrainOnTime }}</td>
+                                        {% endif %}
+                                                
+                                                <td>{{ i.TimeTabledDateTime }}</td>
+                                                <td>{{ i.ExpectedDepartureTime }}</td>
+                                                <td>{{ i.StopAreaName }}</td>
+                                                <td>{{ i.Destination }}</td>
+                                                <td>{{ i.DeviationsText }}</td>
+                                                <td>{{ i.TimeDifference }}</td>
+                                        </tr>
+                                {% endfor %}
+
+                        </tbody>
+                </table>  
+        </div>
+          
+</div>
